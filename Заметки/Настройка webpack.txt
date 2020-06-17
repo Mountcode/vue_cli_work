@@ -1,0 +1,124 @@
+Инициализация нового проекта
+npm init -y
+Установка webpack
+npm i webpack webpack-cli webpack-dev-server -D
+
+// -D то же самое что и -save-dev //
+
+Webpack запускается быстрее галпа. Он сразу подрубает сборщик и browsersync
+Но сначала нужн осоздать файл конфига в корне - webpack.config.js допустим такого вида:
+let path = require('path'); //просто переменная с полным путем до папки
+
+let conf = {
+	entry: './app/js/scripts.js',
+	output: {
+		path: path.resolve(__dirname, './js'),
+		filename: 'main.js',
+		publicPath: 'js/'
+	}
+};
+
+module.exports = conf;
+
+И описать ему команды на запуск, в файле packaje.json добавить:
+"scripts": {
+    "dev": "webpack-dev-server --mode development --open",
+    "build": "webpack --mode production"
+},
+
+/////////////////////////////////////////
+
+Далее установка babel
+npm i -D babel-loader @babel/core @babel/preset-env
+
+Затем,для подключения модулей, создать файл настройки babel в корне - .babelrc с содердимым:
+{
+	"presets": [
+		"@babel/preset-env"
+	]
+}
+Файл .babelrc может гибко настраиваться и вообще модули постоянно меняются т.к. экспериментальные функции JS любо вылетают из пользования либо становятся практикующимися. 
+
+
+Polyfil
+npm i -D @babel/polyfill
+
+/////////////////////////////////////////
+
+Запуск: 
+npm run build - билд
+npm run dev - разработка
+
+//////////////////////////////////////
+ES lint - плагин который приводит код к какому-то единообразию (актуально для командной разработки). 
+Кстати для Visual studio code нужно поставить расширение а потом еще установить его в систему через консоль
+npm i eslint -D
+
+нужно так же в корне создать файл настройки с пустым JSON внутри. Называется .eslintrc  а содержимое:
+{
+	"extends": "eslint: recommended",
+	"parser": "babel-eslint",
+	"globals": {
+		"window":true,
+		"document":true,
+		"console":true
+	}
+}
+И еще сверху установить в систему парсер линта от бэйбла
+npm i -D babel-eslint
+
+///////////////////////////////////
+Файл packege.json нужен для описания того из чего состоит твоя сборка. Если запустить команду npm i то он возьмет и по очереди установит все перечисленные в packege модули
+
+///////////////////////////////////
+Работа с HTML, плагин:
+npm i -D html-webpack-plugin
+///////////////////////////////////
+Плагин для очищения DIST
+npm i -D clean-webpack-plugin
+
+///////////////////////////////////
+Для интеграции в проект CSS нам нужно скачать 2 лоадера
+npm i -D style-loader css-loader
+
+///////////////////////////////////
+Работа с файлами
+npm i file-loader -D
+
+///////////////////////////////////
+Это актуальный нормалайз
+npm i normalize.css
+
+Добавляем его в css
+@import "../../node_modules/normalize-css/normalize.css";
+
+///////////////////////////////////
+Копирование и перенос файлов
+npm i -D copy-webpack-plugin
+
+///////////////////////////////////
+Работа с css. Минификация.
+
+Объединение и вывод:
+npm i -D mini-css-extract-plugin
+
+Минификация CSS:
+npm i optimize-css-assets-webpack-plugin -D
+
+///////////////////////////////////
+
+Работа с less
+npm i -D less-loader
+npm i -D less
+
+Sass
+npm i -D node-sass sass-loader
+
+
+//////////////////////////////////
+Минификация JS:
+npm i terser-webpack-plugin -D
+
+///////////////////////////////////
+спомогательный плагин. определяет операционку и задачет переменной значение на билд или девелопмент версию, во время запуска вепбака. что бы потом пользоваться этим флагом. Настраивается в packeje.json в scripts
+npm i -D cross-env

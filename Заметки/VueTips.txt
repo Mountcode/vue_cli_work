@@ -1,0 +1,358 @@
+$ - через доллар указываются системные j,]trns Vue
+////////////
+Vue можно не инициализировать через свойство el. можно ег оубрать, и после вызова объекта Vue использовать:
+
+vue.$mount('#app') //$mount - как раз отвечает за это
+
+////////////
+
+Вообще шаблон можно описывать не в HTML а прямо во Vue. Это свойство template:
+var vue1 = new Vue({
+		data:{
+				title: 'Vue 1'
+		},
+		template:'<h1>{{title}}</h1>'
+})
+vue1.$mount('#app')
+
+- В таком методе есть нюанс. Всё что находится в template должно быть завернута в один тег, например div. 
+
+////////////////////////////////////////////////////////////////
+
+Основа конструктора Vue
+new Vue({
+		el: '#app',
+		data:{
+				url: 'https://google.com'
+		},
+		methods:{
+				changeName: function(event){
+						this.name = event.target.value;
+				},
+		}
+})
+////////////
+
+Computed. Вычисленные финкции. Внутри указываются функции.
+В шаблоне эти функии вызываются как переменные (т.е. без () )
+
+new Vue({
+		el: '#app',
+		data:{
+				isActive:false,
+				color: 'yellow'
+		},
+		computed:{
+				getCssClasses: function(){
+						return{
+								'red': this.isActive,
+								'green': !this.isActive
+						}
+				}
+		},
+		methods:{
+		}
+})
+
+//////////////////////////////////////////////////////
+Watch - так же добавляется в корень приложения. Позволяет запускать функции при изменении переменных. Для этого в watch нужно записать функция имя которой будет совпадать с переменной которой нужно отслеживать. И при изменении этой переменной в приложении будет запускаться функция.
+Так же эта функция может принимать val который будет равен отслеживаемой переменной.
+
+////////////////////////////////////////////////////////////////
+Методы жизненного цикла приложения Vue
+
+beforeCreate - перед созданием приложение
+created - в момент создания
+beforeMount - перед добавлением уже скомпилированного шаблона в DOM
+mounted - после добавления шаблона
+//
+beforeUpdate - отслеживает изменения. перед изменением
+updated - отслеживает изменения. по завершению изменения
+//
+beforeDestroy - Перед уничтожением экземпляра
+destroed - по уничтожению экземпляра
+
+var vue1 = new Vue({
+		el: '#app',
+		data:{
+				title: 'Vue 1'
+		},
+		beforeCreate: function(){
+				console.log('beforeCreate')
+		},
+		created: function(){
+				console.log('created')
+		},
+		beforeMount: function(){
+				console.log('beforeMount')
+		},
+		mounted: function(){
+				console.log('mounted')
+		},
+		beforeUpdate: function(){
+				console.log('beforeUpdate')
+		},
+		updated: function(){
+				console.log('updated')
+		},
+		beforeDestroy:function(){
+				console.log('beforeDestroy')
+		},
+		destroyed:function(){
+				console.log('destroed')
+		},
+		methods:{
+				dst:function(){
+						this.$destroy();
+				}
+		}
+})
+
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+
+Примеры дериктив
+v-bind - для описания динамических значений внутри атрибутов
+
+<a v-bind:href="url">{{ url }}</a>
+
+////////////
+v-html - вывод html элементов
+<h2 v-html="link"></h2> 
+/
+data:{
+		link: '<a href="https://google.com">google</a>'
+},
+/
+
+///////////
+v-on - обработка события
+v-on:click="addOne" - на клик обращение к методу addOne
+
+<h2>Counter = {{count}} </h2>
+<input type="submit" value="Add" v-on:click="addOne">
+/
+метод 
+addOne: function(){
+		this.count++
+}
+/
+Так же можно писать метод инлайном простым JS
+<h2>Counter = {{count2}} </h2>
+<input type="submit" value="Add" v-on:click="count2++">
+
+Можно передать параметры
+<input type="submit" value="Add" v-on:click="addOne(5)">
+
+addOne: function(num){
+		this.count+=num
+}
+
+Если вместе с параметрами нужно передать стандартный параметр e то его нужно обозначить ($event):
+
+v-on:click="addOne($event, 5,'передаем строку')"
+
+//////////
+
+v-model - это т.н. Two way binding. суть в том что организуется двустороняя связь инпута с элементом. Значение элемента лежит в инпуте. при изменении инпута значение элемента меняется.
+
+<input type="text" v-model="inputValue">
+<h1> {{inputValue}} </h1>
+
+//////////
+v-if - условие булево
+
+<h2 v-if="isVis">Visible</h2>
+<h2 v-else>Invisible</h2>
+<input type="submit" @click="isVis = !isVis">
+
+или else if
+
+<h2 v-if="type === 'a'">A</h2>
+<h2 v-else-if="type === 'b'">B</h2>
+<h2 v-else-if="type === 'c'">C</h2>
+<h2 v-else>Not</h2>
+<hr>
+<input type="text" v-model="type">
+
+//////////
+
+Группировка условий
+<template v-if="issv">
+		<h2>1111</h2>
+		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, dolor.</p>
+</template>
+<template v-else>
+		<h2>222</h2>
+		<p>Lorem ipsum dolor sit amet consectetur </p>
+</template>
+
+//////////
+v-show - дериктива спрятать/показать display:none
+
+
+//////////
+v-for - Работа со списками. Вывод массива перебором
+
+<li v-for="person in people">{{ person }}</li>
+data:{
+		people: [
+				'vlad',
+				'max',
+				'ira'
+		]
+}
+
+Так можно вывести индексы элементов
+<li v-for="(person, index) in people">{{index + 1}}{{ person }}</li> 
+
+
+И если бы это был массив с объектами то:
+<li v-for="(person, index) in people">
+		{{index + 1}}. {{ person.name }} - <i>{{person.age}}</i>
+</li> 
+
+people: [
+		{name: 'vlad',age: '23'},
+		{name: 'max',age: '32'},
+		{name: 'elena', age: '43'},
+]
+
+А так можно вывести массив с числами создавая его прямо в дериктиве
+<li v-for="num of 10">{{num}}</li>
+
+
+Если с помощью v-for мы обращаемся к объекты а не к массиву он это понимает автоматом и перебирает нам обхект. Так же и ключи выводятся и индекс тоже
+<li v-for="(value, key, index) in person">{{index}} {{key}} {{value}}</li>
+
+//////////////////////////////////////////////////////
+Модификаторы дериктив
+
+v-on:click.prevent=""    // равносильно вызову функции с кодом e.preventDefault
+
+v-on:keyup.enter="alertvalue" //Выполнить функцию только по нажатию Enter
+v-on:keyup.enter.space="alertvalue" //Выполнить функцию только по нажатию Enter и space
+
+v-model.lazy - изменение только при смене фокуса
+
+
+//////////////////////////////////////////////////////
+События клавиатуры
+<input type="text" v-on:keyup="alertvalue">
+/
+alertvalue: function(e){
+		if(e.keyCode == 13){ //Выполнить при нажатии Enter
+				alert(e.target.value);
+		}
+}
+
+
+
+
+//////////////////////////////////////////////////////
+Ярлыки
+
+Позволяют заменять дериктивы на другие варианты записи
+<a v-bind:href="url" >google</a>
+===
+<a :href="url" >google</a>
+
+или
+
+<input type="submit" v-on:click="counter++" value="+">
+===
+<input type="submit" @click="counter++" value="+">
+
+
+
+
+
+//////////////////////////////////////////////////////
+При создании объекта Vue его можно поместить в переменную. Т.о. к нему можно будет обращаться, например, из других обхектов Vue
+var vue1 = new Vue({
+		el: '#app',
+		data:{
+				title: 'Vue 1'
+		},
+		methods:{
+			alert: function(){
+				alert('kavabanga');
+			}
+		}
+})
+Обращаться можно как к переменным так и к функциям. 
+console.log(vue1.title);
+vue1.alert();
+
+//////////////////////////////////////////////////////
+Референции - доступ к DOM элементам ($refs - это системный объект со всеми референциями DOM)
+<h2 ref="headeing"> {{title}} </h2>
+
+upt: function(){
+		this.title = 'new title'
+		this.$refs.headeing.style.color = 'red'
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Куски кода - Примеры
+
+//////////
+тоггл класса
+<div class="sq" @click="isActive = !isActive" :class="{'red': isActive}"></div>
+
+new Vue({
+		el: '#app',
+		data:{
+				isActive:false
+		}
+})
+
+//////////
+
+Передача параметра (класса) v-model
+<div  class="sq" :class="color"></div>
+<input type="text" v-model="color">
+
+//////////
+Объединение двух методов выше для условий
+<div  class="sq" :class="[color, {'red': isActive}]"></div>
+<input type="text" v-model="color">
+
+//////////
+писать стили инлайном так. Плюс можно их совмещать с методами
+<div class="sq" :style="[sqClasses,{'width': height + 'px'}]"></div>
+<input type="text" v-model="color">
+<input type="text" v-model="height">
+
+new Vue({
+		el: '#app',
+		data:{
+				isActive:false,
+				color: 'blue',
+				height: '100'
+		},
+		computed:{
+				sqClasses: function(){
+						return{
+						'background': this.color,
+						'height': this.height + 'px'
+						}
+				}
+		}
+});
+
+//////////
