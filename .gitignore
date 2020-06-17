@@ -1,0 +1,12 @@
+.DS_Store
+vueLessons/node_modules/
+vueLessons/dist/
+vueLessons/npm-debug.log
+vueLessons/yarn-error.log
+
+# Editor directories and files
+vueLessons/.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
