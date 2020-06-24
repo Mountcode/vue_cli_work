@@ -326,6 +326,16 @@ myComponent == my-component == <my-component></my-component>
 
 Название компонента является html тегом по которому его вызывают.
 
+//////////
+
+Передача паметров между компонентами
+1. <app-car v-bind:carName="carName"></app-car>
+2.
+export default {
+	props: ['carName'],
+}
+
+
 
 
 
