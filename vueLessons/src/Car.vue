@@ -17,7 +17,6 @@ export default {
 			type: String,
 			required: true,
 		},
-		counter: Number,
 		carYear: Number,
 		changeFunc: Function 
 	},
@@ -27,8 +26,7 @@ export default {
 			this.$emit('nameChanged',this.carName);
 		},
 		updateCnt(){
-			this.$emit('counterUpd', this.counter+1)
-			// eventEmitter.$emit('counterUpd')
+			eventEmitter.$emit('counterUpd')
 		}
 	},
 	computed: {

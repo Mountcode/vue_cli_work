@@ -421,7 +421,37 @@ methods:{
 В корневом файле main.js вызываем новый компонент Vue
 export const eventEmitter = new Vue();
 
+Родительский компонент:
+Импортировать 2 компонента и всё
 
+Компонент 1:
+
+Тут мы импортируем обеъект  eventEmitter
+import { eventEmitter } from './main'
+И описываем событие связанное с параметром:
+
+data(){
+	return{
+		counter: 0
+	}
+},
+created(){
+	eventEmitter.$on('counterUpd', () =>{
+		this.counter++
+	})
+}
+
+Компонент 2:
+Тут мы так же импортируем объект eventEmitter
+import {eventEmitter} from './main.js'
+
+Оставляем описание метода работы со свойством
+updateCnt(){
+	eventEmitter.$emit('counterUpd')
+}
+
+и естественно кнопку с событием
+<button @click="updateCnt()">Count++</button>
 
 
 
