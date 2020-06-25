@@ -2,12 +2,35 @@
 	<div class='car'>
 		<h3>Name: {{ carName }} \ {{reverseName}} </h3>
 		<p>Year:  {{carYear}} </p>
+		<button @click="changeName">cng</button>
+		<button @click="changeFunc()">cng2</button>
+		<button @click="updateCnt()">Count++</button>
 	</div>
 </template>
 
 <script>
+import {eventEmitter} from './main.js'
+
 export default {
-	props: ['carName','carYear'],
+	props:{
+		carName: {
+			type: String,
+			required: true,
+		},
+		counter: Number,
+		carYear: Number,
+		changeFunc: Function 
+	},
+	methods:{
+		changeName(){
+			this.carName = 'Mazda'
+			this.$emit('nameChanged',this.carName);
+		},
+		updateCnt(){
+			this.$emit('counterUpd', this.counter+1)
+			// eventEmitter.$emit('counterUpd')
+		}
+	},
 	computed: {
 		reverseName(){
 			return this.carName.split('').reverse().join('')
