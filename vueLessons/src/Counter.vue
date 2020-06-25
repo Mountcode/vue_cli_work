@@ -1,18 +1,18 @@
 <template>
-	<h1>Counter: {{ counter }}</h1>
+	<div>
+		<h2>Conter</h2>
+		<p>kll;ksdvgkl; skldgfkl;jsrl;gk </p>
+	</div>
 </template>
 <script>
-import { eventEmitter } from './main'
+
 export default {
-	data(){
-		return{
-			counter: 0
-		}
-	},
-	created(){
-		eventEmitter.$on('counterUpd', () =>{
-			this.counter++
-		})
-	}
+	
 }
 </script>
+
+<style scoped>
+	h2{
+		color: blue; 
+	}
+</style>
