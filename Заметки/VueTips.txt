@@ -564,6 +564,40 @@ data(){
 Модификаторы v-model
 v-model.number - приводит строку в инпуте к числу. при этом он позволяет писать строки но не обрабатывает их. только числа
 
+//////////
+
+Валидация форм выполняется с помощью дополнительного модуля vuelidate
+
+Установить:
+npm i vuelidate -D 
+
+И импортировать в main.js
+import Vuelidate from 'vuelidate'
+
+И там же вызываем библиотеку
+Vue.use(Vuelidate)
+
+
+Далее мы можем вызвать поле validations в описании компонента и указать в нем те поля которые хотим валидировать
+
+Описав конкретное input в поле validations нужно этому импуту сделать ривязку. добавив ему атибут @input="$v", далее уточнить тот способ валидации который нужен и добавив метод touch()
+@input="$v.email.$touch()"
+
+
+Пример
+validations:{
+	email:{
+		required: required
+	}
+}
+
+<input type="text" id="email" class="form-control" @input="$v.email" v-model="email">
+
+
+
+
+
+
 
 
 
