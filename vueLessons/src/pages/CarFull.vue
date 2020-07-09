@@ -1,17 +1,32 @@
 <template>
 	<div>
-		<h1>model Ford2</h1>
-		<p>year 2016</p>
+		<h1>Model: {{ $route.query.name}}</h1>
+		<p>year {{year}}</p>
+		<div class="scroll">
+
+		</div>
+		<h6 id="scroll">yeue</h6>
+		<div class="scroll">
+
+		</div>
 	</div>
 	
 </template>
 
 <script>
 	export default{
-
+		computed:{
+			year() {
+				return this.$route.query.year
+			}
+		}
 	}
 </script>
 
 <style scoped>
-
+	.scroll{
+		width: 100px;
+		height: 1000px;
+		background: gray;
+	}
 </style>
