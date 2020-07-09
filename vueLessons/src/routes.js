@@ -2,6 +2,7 @@ import VueRouter from 'vue-router'
 import Home from './pages/Home'
 import Cars from './pages/Cars'
 import Car from './pages/Car'
+import ErrorCmp from './pages/Error'
 import CarFull from './pages/CarFull'
 
 export default new VueRouter({
@@ -24,6 +25,14 @@ export default new VueRouter({
 					name: 'carFull'
 				}
 			]
+		},
+		{
+			path: '/none',
+			redirect: '/cars'
+		},
+		{
+			path: '*', // 404 error 
+			component: ErrorCmp
 		}
 	],
 	mode: 'history',
