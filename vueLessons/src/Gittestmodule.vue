@@ -1,3 +1,5 @@
 <template>
-test
+ <div>
+	 <span>Changes!</span>
+ </div>
 </template>
