@@ -29,7 +29,7 @@ git push -u origin master
 
 Тут возможно будет проблема с SSH ключем. Решается так:
 В консоле создать ключ у себя:
-$ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+$ ssh-keygen -t rsa -b 4096 -C "your_email@example.com" (все вопросы пропустить)
 Инициализировать ключ:
 $ ssh-add ~/.ssh/id_rsa
 
@@ -42,3 +42,24 @@ $ ssh-add ~/.ssh/id_rsa
 //
 Что бы управлять репозиторием от имени аккаунта гита (а не каких то там контрибутеров) нужно прописать почту от аккаунта в настройках репозитория:
 git config --global user.email "ваш-github-email@example.com"
+git config --global user.name "Mountcode"
+
+////////////////////////////////////////////////////////////////////////////////////////////
+Копирования репозитория 
+
+0. Инициализируем гит на новом месте
+git init
+git config --global user.email "ваш-github-email@example.com"
+git config --global user.name "Mountcode"
+
+1. Копируем с гита ссылку на реп [Ссылка на реп]
+
+2. git remote add origin [Ссылка на реп]
+
+3. git pull origin master
+
+////////////////////////////////////////////////////////////////////////////////////////////
+Merge репозиториев
+
+
+
