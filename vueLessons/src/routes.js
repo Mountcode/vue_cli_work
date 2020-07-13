@@ -1,9 +1,19 @@
 import VueRouter from 'vue-router'
 import Home from './pages/Home'
-import Cars from './pages/Cars'
 import Car from './pages/Car'
 import ErrorCmp from './pages/Error'
 import CarFull from './pages/CarFull'
+
+
+// lazyload for cars component
+const Cars = resolve => {
+	require.ensure(['./pages/Cars.vue'], () =>{
+		resolve(
+			require('./pages/Cars.vue')
+		)
+	})
+}
+
 
 export default new VueRouter({
 	routes: [
@@ -24,10 +34,7 @@ export default new VueRouter({
 					component: CarFull,
 					name: 'carFull',
 					beforeEnter(to,from,next){
-						console.log('beforeEnter')
-						if(true){
-							next()
-						}
+						next()
 					}
 				}
 			]
