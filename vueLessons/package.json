@@ -11,7 +11,8 @@
     "server": "json-server --watch db.json"
   },
   "dependencies": {
-    "vue": "^2.5.11"
+    "vue": "^2.5.11",
+    "vuex": "^3.5.1"
   },
   "browserslist": [
     "> 1%",
