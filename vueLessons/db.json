@@ -1,5 +1,24 @@
 {
-	"cars":[
-		
-	]
+  "cars": [
+    {
+      "name": "frod",
+      "year": 2018,
+      "id": 1
+    },
+    {
+      "name": "Shifg",
+      "year": 2018,
+      "id": 2
+    },
+    {
+      "name": "vrelic",
+      "year": 2018,
+      "id": 3
+    },
+    {
+      "name": "tyyyilo",
+      "year": "2019",
+      "id": 4
+    }
+  ]
 }
