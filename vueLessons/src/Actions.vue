@@ -9,7 +9,10 @@
 export default {
     methods:{
         updateCounter(val){
-            this.$store.dispatch('asyncChangeCounter', val)
+            this.$store.dispatch('asyncChangeCounter', {
+                counterValue: val,
+                timeoutDelay: 1200
+            })
         }
     }
 }
