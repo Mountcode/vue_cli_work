@@ -1,5 +1,5 @@
 <template>
-    <h2>{{counter}}</h2>
+    <h2>second {{counter}}</h2>
 </template>
 <script>
     export default {
