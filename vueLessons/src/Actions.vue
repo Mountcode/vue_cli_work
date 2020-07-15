@@ -9,7 +9,7 @@
 export default {
     methods:{
         updateCounter(val){
-            this.$store.commit('changeCounter',val)
+            this.$store.dispatch('asyncChangeCounter', val)
         }
     }
 }
